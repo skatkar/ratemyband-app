@@ -1,8 +1,11 @@
 (function(window) {
   "use strict";
   var GENRE_LIST_SELECTOR = "[data-band-left=\"genre-list\"]";
-  var LOGIN_FORM_SELECTOR = "[data-signin=\"form\"]";
+  var LOGIN_FORM_SELECTOR = "[data-signin=\"login\"]";
+  var SIGNIN_FORM_SELECTOR = "[data-signin=\"form\"]";
   var SIGNUP_FORM_SELECTOR = "[data-signup=\"form\"]";
+  var CREATE_ACCOUNT_FORM_SELECTOR = "[data-create-account=\"form\"]";
+
   var SERVER_URL_COMMENTS = "http://localhost:2403/user-comments";
   var SERVER_URL_BANDS = "http://localhost:2403/bands";
   var SERVER_URL_USERS = "http://localhost:2403/users";
@@ -22,8 +25,10 @@
   var bandDetails = new Band(remoteDSBands);
   var userDetails = new User(remoteDSUsers);
 
-  var loginFormHandler = new FormHandler(LOGIN_FORM_SELECTOR);
+  var signinFormHandler = new FormHandler(SIGNIN_FORM_SELECTOR);
   var signupFormHandler = new FormHandler(SIGNUP_FORM_SELECTOR);
+  var loginFormHandler = new FormHandler(LOGIN_FORM_SELECTOR);
+  var createAccountFormHandler = new FormHandler(CREATE_ACCOUNT_FORM_SELECTOR);
 
   window.myBandComments = myBandComments;
   window.bandDetails = bandDetails;
@@ -34,6 +39,12 @@
       bandDetails.displayAllBands.call(bandDetails, serverResponse, GENRE_LIST_SELECTOR);
 
     });
+
+    if (!($.cookie("username") === null || $.cookie("username") === "" ||
+        $.cookie("username") === "null" || $.cookie("username") === undefined)) {
+      $("#LogoutButton").removeClass("hide");
+      $("#SignupButton").addClass("hide");
+    }
   });
 
   $(document).on("click", ".band-comments-div a", function(event) {
@@ -41,27 +52,44 @@
     //$("#band-comments").attr("href");
     if ($.cookie("username") === null || $.cookie("username") === "" ||
       $.cookie("username") === "null" || $.cookie("username") === undefined) {
-    /*if (typeof $.cookie("sid") === "undefined" || $.cookie("sid") === null ||
-      $.cookie("sid") === "" || $.cookie("sid") === "null" || $.cookie("sid") === undefined) {*/
+      /*if (typeof $.cookie("sid") === "undefined" || $.cookie("sid") === null ||
+        $.cookie("sid") === "" || $.cookie("sid") === "null" || $.cookie("sid") === undefined) {*/
       $(".form-signin").trigger("reset");
       $("#login-error").addClass("hide");
-      $("#login-modal").modal();
+      $("#signin-modal").modal();
     } else {
       window.location.href = event.currentTarget;
     }
 
   });
 
+  //Login on landing page
   loginFormHandler.addLoginHandler.call(loginFormHandler, function(user) {
-    userDetails.authenticate.call(userDetails,user,function(loginStatus){
+    userDetails.authenticate.call(userDetails, user, function(loginStatus) {
       console.log("Login status is : " + loginStatus);
-      if(loginStatus == "success"){
+      if (loginStatus == "success") {
+        $.cookie("username", user.username);
+        window.location.href = "/";
+
+      } else if (loginStatus == "signup") {
+        $("#signup-modal").modal();
+      } else {
+        $("#login-error").removeClass("hide");
+      }
+    });
+  });
+
+  // Sign in before landing on second page
+  signinFormHandler.addLoginHandler.call(signinFormHandler, function(user) {
+    userDetails.authenticate.call(userDetails, user, function(loginStatus) {
+      console.log("Login status is : " + loginStatus);
+      if (loginStatus == "success") {
         $.cookie("username", user.username);
         window.location.href = $(".band-comments-div a").attr("href");
-      }else if(loginStatus == "signup"){
+      } else if (loginStatus == "signup") {
         $("#signup-modal").modal();
-      }else{
-        $("#login-error").removeClass("hide");
+      } else {
+        $("#signin-error").removeClass("hide");
       }
     });
     /*userDetails.authenticateDpd.call(userDetails, user, function(loginStatus) {
@@ -83,4 +111,23 @@
     window.location.href = $(".band-comments-div a").attr("href");
   });
 
+  //Create account button on first page
+  createAccountFormHandler.addSignupHandler.call(createAccountFormHandler, function(user) {
+    userDetails.register.call(userDetails, user);
+    $.cookie("username", user.username);
+    window.location.href = "/";
+  });
+
+  $("#LoginButton").click(function() {
+    $("#login-modal").modal();
+  });
+
+  $("#SignupButton").click(function() {
+    $("#create-account-modal").modal();
+  });
+
+  $("#LogoutButton").on("click", function() {
+    $.removeCookie("username");
+    window.location.href = "/";
+  });
 })(window);

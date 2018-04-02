@@ -36,6 +36,8 @@
       $.cookie("username") === "null" || $.cookie("username") === undefined) {
       window.location.href = "/";
     } else {
+      var username = $.cookie("username");
+      $("#display-username").text("Welcome " + username +"!");
       $("#bandName").text(bandName);
       bandDetails.getBandInfo.call(bandDetails, bandName, function(bandInfo) {
         $("#bandPerformanceDay").text("Performance on " + bandInfo.performanceDay);

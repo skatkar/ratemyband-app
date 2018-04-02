@@ -34,8 +34,8 @@
         </div>
     </header>
 
-    <!--modal for signin-->
-    <div id="login-modal" class="modal">
+    <!--modal for signin -->
+    <div id="signin-modal" class="modal">
         <label>
             <div data-modal-info="modal">
                 <form class="form-signin" data-signin="form">
@@ -46,6 +46,26 @@
 
                     <label for="password" class="sr-only">Password</label>
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" value="">
+                    <label id="signin-error" class="hide error">Invalid credentials!</label>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                </form>
+            </div>
+        </label>
+    </div>
+
+    <!--modal for login-->
+    <div id="login-modal" class="modal">
+        <label>
+            <div data-modal-info="modal">
+                <form class="form-signin" data-signin="login">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Username" value="" required autofocus>
+
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" value="">
                     <label id="login-error" class="hide error">Invalid credentials!</label>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 
@@ -96,13 +116,35 @@
                     <h2 class="form-signin-heading">Register</h2>
                     <label id="register">You are not registered yet!</label>
                     <label for="username" class="sr-only">Username</label>
-                    <input type="text" name="username" id="username1" class="form-control" placeholder="Username" value="" required autofocus>
+                    <input type="text" name="username" id="uid" class="form-control" placeholder="Username" value="" required autofocus>
 
                     <label for="password" class="sr-only">Password</label>
-                    <input type="password" name="password" id="password1" class="form-control" placeholder="Password" value="">
+                    <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" value="">
 
                     <label for="emailAddress" class="sr-only">Email</label>
                     <input type="email" name="emailAddress" id="signupemail" class="form-control" placeholder="abcd@domain.com" value="">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+
+                </form>
+            </div>
+        </label>
+    </div>
+
+    <!--modal for create account-->
+    <div id="create-account-modal" class="modal">
+        <label>
+            <div data-modal-info="modal">
+                <form class="form-signin" data-create-account="form">
+                    <h2 class="form-signin-heading">Register</h2>
+                    <label>You are not registered yet!</label>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Username" value="" required autofocus>
+
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Password" value="">
+
+                    <label for="emailAddress" class="sr-only">Email</label>
+                    <input type="email" name="emailAddress" class="form-control" placeholder="abcd@domain.com" value="">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 
                 </form>
@@ -130,6 +172,7 @@
         <div class="panel panel-footer" data-login-buttons="buttons">
             <button type="button" class="btn btn-default" id="LoginButton">Login</button>
             <button type="button" class="btn btn-kelly-yellow" id="SignupButton">Create an Account</button>
+            <button type="button" class="btn btn-default hide" id="LogoutButton">Logout</button>
             <!-- takes you to index2.html>
       <a href="index2.html">
         <button href="index2.html" type="button" class="btn btn-kelly-yellow" id="toIndex2">Go to Index2</button>
