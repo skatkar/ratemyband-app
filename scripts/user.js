@@ -37,7 +37,7 @@
 
   User.prototype.register = function(user){
     this.db.add(user.username,user);
-  }
+  };
 
   App.User = User;
   window.App = App;
