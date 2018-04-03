@@ -1,6 +1,7 @@
 (function(window) {
   "use strict";
   var FORM_SELECTOR_COMMENTS = "[data-band-review=\"form\"]";
+  var UPLOAD_FORM_SELECTOR = "[data-upload=\"form\"]";
   var CHECKLIST_SELECTOR = "[data-band-review=\"user-comments\"]";
   var SERVER_URL_COMMENTS = "http://localhost:2403/user-comments";
   var SERVER_URL_BANDS = "http://localhost:2403/bands";
@@ -30,6 +31,7 @@
 
   var commentsSummary = new Comments(CHECKLIST_SELECTOR);
   var formHandlerComments = new FormHandler(FORM_SELECTOR_COMMENTS);
+  var uploadFormHandler = new FormHandler(UPLOAD_FORM_SELECTOR);
 
   $(document).ready(function() {
     if ($.cookie("username") === null || $.cookie("username") === "" ||
@@ -37,6 +39,9 @@
       window.location.href = "/";
     } else {
       var username = $.cookie("username");
+      if(username == "admin"){
+        $("#UploadButton").removeClass("hide");
+      }
       $("#display-username").text("Welcome " + username +"!");
       $("#bandName").text(bandName);
       bandDetails.getBandInfo.call(bandDetails, bandName, function(bandInfo) {
@@ -79,7 +84,16 @@
     commentsSummary.addRow(data);
   });
 
+  uploadFormHandler.addVideoUploader(function(data){
+    bandDetails.addVideo(data);
+    window.location.href = "/";
+  });
+
   formHandlerComments.addInputHandler();
+
+  $("#UploadButton").click(function() {
+    $("#upload-modal").modal();
+  });
 
   $("#LogoutButton").on("click", function() {
     $.removeCookie("username");

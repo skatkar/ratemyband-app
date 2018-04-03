@@ -52,6 +52,17 @@
     });
   };
 
+  FormHandler.prototype.addVideoUploader = function(fn){
+    this.$formElement.on("submit",function(event){
+      event.preventDefault();
+      var bandInfo = {};
+      $(this).serializeArray().forEach(function(item){
+        bandInfo[item.name] = item.value;
+      });
+      fn(bandInfo);
+    });
+  };
+
   FormHandler.prototype.addInputHandler = function() {
     this.$formElement.on("input", "[name=\"vote\"]", function(event) {
       var isChecked = $("input[name=vote]:checked").val();

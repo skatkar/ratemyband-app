@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="shortcut icon" href="images/favicon.ico">
   <title>Rate My Band</title>
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -53,10 +54,44 @@
   </label>
   </div>
 
+  <!--modal for uploading-->
+  <div id="upload-modal" class="modal">
+      <label>
+          <div data-modal-info="modal">
+              <form class="form-upload" data-upload="form" id="form-upload">
+                  <h2 class="form-signin-heading">Upload a Video</h2>
+                  <p>Please provide the details.</p>
+
+                  <label for="videoLink" class="sr-only">Embeded Video Link</label>
+                  <input type="text" name="bandVideo" id="videoLink" class="form-control" placeholder="Embedded Video Link" value="" required autofocus>
+
+                  <select name="genre" form="form-upload" class="form-control">
+                      <option value="Rock">Rock</option>
+                      <option value="Pop">Pop</option>
+                      <option value="Heavy rock">Heavy Rock</option>
+                  </select>
+
+                  <label for="name" class="sr-only">Band Name</label>
+                  <input type="text" name="bandName" id="name" class="form-control" placeholder="Band Name" required value="">
+
+                  <label for="performanceLocation" class="sr-only">Performance Location</label>
+                  <input type="text" name="location" id="location" class="form-control" required placeholder="Los Angeles, CA" value="">
+
+                  <label for="performanceDate" class="sr-only">Performance Date</label>
+                  <input type="date" name="performanceDay" id="performanceDay" class="form-control" required value="">
+
+                  <button class="btn btn-lg btn-primary btn-block" type="submit" id="uploadVideoButton">Upload</button>
+
+              </form>
+          </div>
+      </label>
+  </div>
+
 
   <section>
     <div class="panel panel-footer">
       <button type="button" class="btn btn-default" id="LogoutButton">Logout</button>
+      <button type="button" class="btn btn-default hide" id="UploadButton">Upload</button>
     </div>
     <div class="panel panel-footer" data-user-info="display-username">
       <label id="display-username"></label>

@@ -77,6 +77,10 @@
     });
   };
 
+  Band.prototype.addVideo = function(bandInfo){
+    this.db.add(bandInfo.bandName,bandInfo);
+  };
+
   function getUniqueGenres(bandInfoList){
     var lookup = {};
     var items = bandInfoList;

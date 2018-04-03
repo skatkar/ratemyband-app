@@ -42,8 +42,14 @@
 
     if (!($.cookie("username") === null || $.cookie("username") === "" ||
         $.cookie("username") === "null" || $.cookie("username") === undefined)) {
+      var username = $.cookie("username");
+      if(username == "admin"){
+        $("#UploadButton").removeClass("hide");
+      }
+      $("#display-username").text("Welcome " + username +"!");
       $("#LogoutButton").removeClass("hide");
       $("#SignupButton").addClass("hide");
+      $("#LoginButton").addClass("hide");
     }
   });
 
@@ -52,8 +58,6 @@
     //$("#band-comments").attr("href");
     if ($.cookie("username") === null || $.cookie("username") === "" ||
       $.cookie("username") === "null" || $.cookie("username") === undefined) {
-      /*if (typeof $.cookie("sid") === "undefined" || $.cookie("sid") === null ||
-        $.cookie("sid") === "" || $.cookie("sid") === "null" || $.cookie("sid") === undefined) {*/
       $(".form-signin").trigger("reset");
       $("#login-error").addClass("hide");
       $("#signin-modal").modal();
@@ -116,6 +120,10 @@
     userDetails.register.call(userDetails, user);
     $.cookie("username", user.username);
     window.location.href = "/";
+  });
+
+  $("#UploadButton").click(function() {
+    $("#upload-modal").modal();
   });
 
   $("#LoginButton").click(function() {

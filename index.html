@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+    <link rel="shortcut icon" href="images/favicon.ico">
     <title>Rate My Band</title>
     <style>
     .error{
       color : red;
+    }
+    #display-username{
+      margin-left: 73%;
     }
     </style>
 
@@ -85,11 +88,10 @@
                     <label for="videoLink" class="sr-only">Embeded Video Link</label>
                     <input type="text" name="videoLink" id="videoLink" class="form-control" placeholder="Embedded Video Link" value="" required autofocus>
 
-                    <select name="genre" form="form-upload">
+                    <select name="genre" form="form-upload" class="form-control">
+                        <option value="Rock">Rock</option>
                         <option value="Pop">Pop</option>
-                        <option value="Lo-Fi">Lo-Fi</option>
-                        <option value="AGT">AGT</option>
-                        <option value="Vevo">Vevo</option>
+                        <option value="Heavy rock">Heavy Rock</option>
                     </select>
 
                     <label for="bandName" class="sr-only">Band Name</label>
@@ -173,6 +175,8 @@
             <button type="button" class="btn btn-default" id="LoginButton">Login</button>
             <button type="button" class="btn btn-kelly-yellow" id="SignupButton">Create an Account</button>
             <button type="button" class="btn btn-default hide" id="LogoutButton">Logout</button>
+            <button type="button" class="btn btn-default hide" id="UploadButton">Upload</button>
+            <label id="display-username"></label>
             <!-- takes you to index2.html>
       <a href="index2.html">
         <button href="index2.html" type="button" class="btn btn-kelly-yellow" id="toIndex2">Go to Index2</button>
